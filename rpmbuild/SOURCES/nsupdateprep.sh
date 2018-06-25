@@ -27,7 +27,7 @@ then
    else
       printf "Found ${BASEIPADDR} in /etc/hosts: adding entry for "
       printf "${SHORTNAME}.${DOMNAME} "
-      sed -i '/'${BASEIPADDR}'/s/$/ ' '${SHORTNAME}'.'${DOMNAME}'/' /etc/hosts 
+      sed -i "/${BASEIPADDR}/s/$/ ${SHORTNAME}.${DOMNAME}/" /etc/hosts 
       if [[ $? -eq 0 ]]
       then
          echo "...Success!"
