@@ -50,7 +50,10 @@ then
      echo "update add ${HOSTNAM} ${DDNSTTL} A ${HOSTIP[0]}"
      for CNAME in "${HOSTNAME[@]}"
      do
-        echo "update add ${CNAME} ${DDNSTTL} CNAME ${HOSTNAM}."
+	if [[ ${CNAME} != ${CNAME/\.*/} ]]
+	then
+           echo "update add ${CNAME} ${DDNSTTL} CNAME ${HOSTNAM}."
+	fi
      done
      echo "update delete ${HOSTPTR} PTR"
      echo "update add ${HOSTPTR} ${DDNSTTL} PTR ${HOSTNAM}."
