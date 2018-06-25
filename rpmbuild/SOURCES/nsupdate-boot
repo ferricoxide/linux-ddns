@@ -1,0 +1,21 @@
+#!/bin/bash
+#
+# nsupdate: This shell script takes care of submitting an nsupdate
+#           request to the host's configured nameservers
+#
+# chkconfig: 2345 99 20
+# description: nsupdate is the DNS-client for requesting hostname updates
+#
+#################################################################
+
+case "$1" in
+   start)
+      printf "Calling nsupdate script... "
+      /usr/sbin/nsupdate.sh && echo Success || echo "Failures encountered"
+      ;;
+   stop)
+      echo "No deregistration action required"
+      ;;
+   *) printf "Function not implemented [%s]" "${1}"
+      ;;
+esac
