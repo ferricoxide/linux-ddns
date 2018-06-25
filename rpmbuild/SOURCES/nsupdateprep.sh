@@ -7,7 +7,7 @@ BASEIPADDR=$( /sbin/ip route show | awk '/ src/{ print $9 }' )
 SHORTNAME=$( hostname -s )
 DOMNAME=$( hostname -d )
 
-"# Make sure we know our domain-name
+# Make sure we know our domain-name
 if [[ -z ${DOMNAME} ]]
 then
    printf "Guessing domain from resolv.conf "
