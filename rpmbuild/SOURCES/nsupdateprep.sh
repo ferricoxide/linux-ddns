@@ -3,7 +3,7 @@
 # Script to ensure that $(hostname --fqdn) returns correctly
 #
 #################################################################
-BASEIPADDR=$( /sbin/ip route show | head -1 sed 's/#/.*$##' )
+BASEIPADDR=$( /sbin/ip route show | awk '/ src/{ print $9 }' )
 SHORTNAME=$( hostname -s )
 DOMNAME=$( hostname -d )
 
@@ -39,7 +39,7 @@ then
 else
    printf "Adding host/IP binding ${BASEIPADDR} ${SHORTNAME}.${DOMNAME} "
    printf "to /etc/hosts "
-   printf "%s\t%s.%s\n" "${BASEIPADDR}" "${SHORTNAME}" "${DOMNAME}" |
+   printf "%s\t%s.%s\n" "${BASEIPADDR}" "${SHORTNAME}" "${DOMNAME}" \
      >> /etc/hosts
    if [[ $? -eq 0 ]]
    then
