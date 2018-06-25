@@ -21,12 +21,12 @@ then
    echo '`hostname --fqdn` returns success.'
 elif [[ $( grep -q ${BASEIPADDR} /etc/hosts )$? -eq 0 ]]
 then
-   if [[ $( grep -q ${SHORNAME}.${DOMNAME} /etc/hosts )$? -eq 0 ]]
+   if [[ $( grep -q ${SHORTNAME}.${DOMNAME} /etc/hosts )$? -eq 0 ]]
    then
       echo "Hostname/IP-mapping already present in /etc/hosts"
    else
       printf "Found ${BASEIPADDR} in /etc/hosts: adding entry for "
-      printf "${SHORNAME}.${DOMNAME} "
+      printf "${SHORTNAME}.${DOMNAME} "
       sed -i '/'${BASEIPADDR}'/s/$/ ' '${SHORTNAME}'.'${DOMNAME}'/' /etc/hosts 
       if [[ $? -eq 0 ]]
       then
