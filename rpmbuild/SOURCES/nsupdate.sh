@@ -1,5 +1,5 @@
 #!/bin/bash
-# shellcheck disable=SC2086,SC1090
+# shellcheck disable=SC2086,SC1090,SC2053
 #
 # Use nsupdate to send a dynamic DNS update to the host's DNS server
 # in order to register the host's PTR and preferred A records.

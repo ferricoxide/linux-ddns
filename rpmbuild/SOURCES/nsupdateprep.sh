@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC2181,SC2016
 #
 # Script to ensure that $(hostname --fqdn) returns correctly
 #
@@ -19,14 +20,14 @@ fi
 if [[ $( hostname --fqdn > /dev/null 2>&1 )$? -eq 0 ]]
 then
    echo '`hostname --fqdn` returns success.'
-elif [[ $( grep -q ${BASEIPADDR} /etc/hosts )$? -eq 0 ]]
+elif [[ $( grep -q "${BASEIPADDR}" /etc/hosts )$? -eq 0 ]]
 then
-   if [[ $( grep -q ${SHORTNAME}.${DOMNAME} /etc/hosts )$? -eq 0 ]]
+   if [[ $( grep -q "${SHORTNAME}.${DOMNAME}" /etc/hosts )$? -eq 0 ]]
    then
       echo "Hostname/IP-mapping already present in /etc/hosts"
    else
-      printf "Found ${BASEIPADDR} in /etc/hosts: adding entry for "
-      printf "${SHORTNAME}.${DOMNAME} "
+      printf "Found %s in /etc/hosts: adding entry for " "${BASEIPADDR}"
+      printf "%s.%s " "${SHORTNAME}" "${DOMNAME} "
       sed -i "/${BASEIPADDR}/s/$/ ${SHORTNAME}.${DOMNAME}/" /etc/hosts 
       if [[ $? -eq 0 ]]
       then
@@ -37,8 +38,8 @@ then
       fi
    fi
 else
-   printf "Adding host/IP binding ${BASEIPADDR} ${SHORTNAME}.${DOMNAME} "
-   printf "to /etc/hosts "
+   printf "Adding host/IP binding %s %s" "${BASEIPADDR}" "${SHORTNAME}"
+   printf ".%s to /etc/hosts " "${DOMNAME} "
    printf "%s\t%s.%s\n" "${BASEIPADDR}" "${SHORTNAME}" "${DOMNAME}" \
      >> /etc/hosts
    if [[ $? -eq 0 ]]
